@@ -1,0 +1,70 @@
+CREATE TABLE prosess.PROSESS (
+	"id" serial NOT NULL,
+	"sak_id" integer NOT NULL,
+	"type" varchar(256) NOT NULL,
+	"opprettet" TIMESTAMP NOT NULL,
+	"sist_endret" TIMESTAMP NOT NULL,
+	"status" varchar(64) NOT NULL,
+	"opprettet_av" varchar(255) NOT NULL,
+	CONSTRAINT "PROSESS_pk" PRIMARY KEY ("id")
+);
+
+
+
+CREATE TABLE "public.AKTIVITET" (
+	"id" serial NOT NULL,
+	"prosess_id" bigint NOT NULL,
+	"type" varchar(255) NOT NULL,
+	"opprettet" TIMESTAMP NOT NULL,
+	"opprettet_av" varchar(255) NOT NULL,
+	CONSTRAINT "AKTIVITET_pk" PRIMARY KEY ("id")
+);
+
+
+
+CREATE TABLE prosess.DOKUMENT (
+	"id" serial NOT NULL,
+	"type" varchar(255) NOT NULL,
+	"dokument_navn" varchar(255) NOT NULL,
+	"dokument_versjon" integer NOT NULL,
+	"data" jsonb NOT NULL,
+	"opprettet" TIMESTAMP NOT NULL,
+	"opprettet_av" varchar(255) NOT NULL,
+	CONSTRAINT "DOKUMENT_pk" PRIMARY KEY ("id")
+);
+
+drop table prosess.sak;
+
+CREATE TABLE prosess.sak (
+	id serial NOT NULL,
+	part_nr integer NOT NULL,
+	type varchar(255) NOT NULL,
+	status varchar(64) NOT NULL,
+	CONSTRAINT SAK_pk PRIMARY KEY (id)
+);
+
+
+
+CREATE TABLE prosess..AktivitetDokument (
+	"id" serial NOT NULL,
+	"aktivitet_id" serial NOT NULL,
+	"dokument_id" serial NOT NULL,
+	"les-skriv" varchar(64) NOT NULL,
+	CONSTRAINT "AktivitetDokument_pk" PRIMARY KEY ("id")
+);
+
+
+
+ALTER TABLE "PROSESS" ADD CONSTRAINT "PROSESS_fk0" FOREIGN KEY ("sak_id") REFERENCES "SAK"("id");
+
+ALTER TABLE "AKTIVITET" ADD CONSTRAINT "AKTIVITET_fk0" FOREIGN KEY ("prosess_id") REFERENCES "PROSESS"("id");
+
+
+
+ALTER TABLE "AktivitetDokument" ADD CONSTRAINT "AktivitetDokument_fk0" FOREIGN KEY ("aktivitet_id") REFERENCES "AKTIVITET"("id");
+ALTER TABLE "AktivitetDokument" ADD CONSTRAINT "AktivitetDokument_fk1" FOREIGN KEY ("dokument_id") REFERENCES "DOKUMENT"("id");
+
+
+
+
+
