@@ -20,7 +20,7 @@ CREATE TABLE "public.AKTIVITET" (
 	CONSTRAINT "AKTIVITET_pk" PRIMARY KEY ("id")
 );
 
-
+-- Database
 
 CREATE TABLE prosess.DOKUMENT (
 	"id" serial NOT NULL,
