@@ -1,3 +1,5 @@
+-- Her burde det vært noen kommentarer
+
 CREATE TABLE prosess.PROSESS (
 	"id" serial NOT NULL,
 	"sak_id" integer NOT NULL,
